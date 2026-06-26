@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>链接变更监控</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>链接变更监控</h1>
+      <p class="subtitle">支持同时监控多个链接 · 在链接上右键可添加到监控列表</p>
+    </header>
+
+    <div class="notice">
+      <strong>智能区分：</strong>正文变更 → 强提醒（通知+弹窗+音效）；仅广告/浮层变化 → 轻量系统通知。内容无变化时静默。
+    </div>
+
+    <section class="card highlight" id="monitor-setup">
+      <h2>添加监控链接</h2>
+      <input type="text" id="add-monitor-name" class="add-monitor-name" placeholder="备注名称（可选）">
+      <input type="url" id="add-monitor-url" class="add-monitor-url" placeholder="https://example.com/page">
+      <button type="button" id="add-monitor-btn" class="btn btn-primary full">添加并开始监控</button>
+    </section>
+
+    <section class="card monitor-card" id="active-monitors-section">
+      <h2>正在监控</h2>
+      <div id="monitor-status" class="status-empty">尚未开始监控</div>
+
+      <label class="checkbox-row global-interval-toggle">
+        <input type="checkbox" id="use-global-interval" checked>
+        <span>所有链接使用相同检查间隔</span>
+      </label>
+
+      <div id="global-interval-section">
+        <p id="current-interval" class="current-interval">当前：每 30 分钟检查一次</p>
+        <div class="field">
+          <span>每隔</span>
+          <input type="number" id="interval-input" min="1" step="1" value="30">
+          <select id="interval-unit">
+            <option value="seconds">秒</option>
+            <option value="minutes" selected>分钟</option>
+            <option value="hours">小时</option>
+            <option value="days">天</option>
+            <option value="weeks">周</option>
+          </select>
+          <span>检查一次</span>
+        </div>
+        <div class="preset-row">
+          <button type="button" class="btn-preset" data-seconds="1">1秒</button>
+          <button type="button" class="btn-preset" data-seconds="5">5秒</button>
+          <button type="button" class="btn-preset" data-minutes="5">5分</button>
+          <button type="button" class="btn-preset" data-minutes="30">30分</button>
+          <button type="button" class="btn-preset" data-hours="1">1时</button>
+        </div>
+        <div class="preset-row">
+          <button type="button" class="btn-preset" data-days="1">1天</button>
+          <button type="button" class="btn-preset" data-weeks="1">1周</button>
+        </div>
+        <button id="save-interval" class="btn btn-secondary">保存检测间隔</button>
+      </div>
+
+      <div id="active-monitor-list" class="active-monitor-list"></div>
+    </section>
+
+    <section class="card">
+      <h2>弹窗提醒</h2>
+      <label class="checkbox-row">
+        <input type="checkbox" id="popup-throttle-ask-checkbox">
+        <span>60 分钟内弹窗超过 40 次时询问是否减缓</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="popups-suppressed-checkbox">
+        <span>暂停 Chrome 弹窗与网页遮罩（仍保留系统通知）</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="ignore-noise-checkbox">
+        <span>忽略纯广告/弹窗变化（仅正文变更时强提醒）</span>
+      </label>
+      <p id="popup-count-hint" class="hint-text"></p>
+    </section>
+
+    <section class="card">
+      <h2>启动行为</h2>
+      <label class="checkbox-row">
+        <input type="checkbox" id="show-pick-toolbar-checkbox">
+        <span>在招标网/公共资源站显示右下角点选工具条</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="show-monitor-badges-checkbox">
+        <span>在页面上显示「可监控」标记（请用点选模式点选）</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="auto-open-checkbox">
+        <span>打开浏览器时自动打开监控页面</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="auto-open-monitor-link-checkbox">
+        <span>选择链接后自动打开监控页面</span>
+      </label>
+    </section>
+
+    <section class="actions">
+      <button id="open-test-page" class="btn btn-outline full">打开测试页（含 uuid 链接）</button>
+    </section>
+    <section class="actions">
+      <button id="check-now" class="btn btn-primary">立即检查</button>
+      <button id="test-notification" class="btn btn-outline">测试通知</button>
+    </section>
+    <section class="actions">
+      <button id="clear-monitor" class="btn btn-danger full">关闭并清除全部监控</button>
+    </section>
+
+    <p id="toast" class="toast hidden"></p>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

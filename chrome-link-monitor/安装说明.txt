@@ -1,0 +1,54 @@
+链接变更监控 Chrome 扩展 v2.0.18
+================================
+
+【推荐安装路径（纯英文，避免后台报错）】
+
+已为你准备副本：D:\chrome-link-monitor
+
+1. chrome://extensions/ → 移除旧的「链接变更监控」
+2. 开发者模式 → 加载已解压的扩展程序
+3. 选择文件夹：D:\chrome-link-monitor
+4. 确认版本为 2.0.18，且无红色错误
+5. Windows 设置中允许 Chrome 通知
+
+若不用 D:\ 副本，也可选本文件夹，但路径含中文时可能报 importScripts / messages.js 错误。
+
+【自检】
+
+在本文件夹执行：python verify_extension.py
+应显示 OK。若有 WARNING 提示中文路径，请改用 D:\chrome-link-monitor。
+
+【若扩展报错】
+
+1. 确认加载的是含 manifest.json 的 chrome-link-monitor 文件夹
+2. 扩展卡片 → 错误 → 全部清除 → 重新加载
+3. 点 Service Worker，控制台不应有红色报错
+4. v2.0.18 已取消 importScripts，后台为单文件 background.js
+
+【文档】
+
+- 用户使用说明书：docs/说明书.md
+- 演示视频拍摄指南：docs/使用说明拍摄指南.md
+- 测试网站：docs/测试网站.md
+- 开发与原理：README.md
+
+【基本使用】
+
+- 扩展面板：多链接、间隔、开始/停止、立即检查
+- 任意页：链接右键「开启链接监控」；地址栏输入 lj 回车
+- 测试：面板「打开测试页」→ httpbingo.org/uuid，间隔 5 秒
+
+【安徽省招标网 / 合肥公共资源】
+
+- 右下角工具条 → 点选模式 → 点列表条目
+- 扩展面板「本页链接」；可选「可监控」标记
+
+【更新扩展后】
+
+- F5 / Ctrl+Shift+R 刷新已打开的招标网页面
+- 工具条应显示 v2.0.18
+
+【开发者】
+
+修改后台逻辑：编辑 background/background.entry.js 后执行 python bundle_sw.py
+修改文案：编辑 gen_messages.py 后执行 python gen_messages.py && python bundle_sw.py

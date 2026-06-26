@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>链接监控 - 测试页</title>
+  <style>
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 24px;
+      line-height: 1.6;
+      color: #1f2937;
+    }
+    h1 { font-size: 22px; margin-bottom: 8px; }
+    .hint { color: #6b7280; font-size: 14px; margin-bottom: 24px; }
+    .notice {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .card {
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      background: #eff6ff;
+    }
+    .card.static { border-color: #6b7280; background: #f9fafb; }
+    .card.ok { border-color: #059669; background: #ecfdf5; }
+    .card h2 { font-size: 16px; margin-bottom: 8px; }
+    a.test-link {
+      display: block;
+      margin-top: 12px;
+      padding: 14px 16px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+    a.test-link:hover { background: #1d4ed8; }
+    a.test-link.secondary { background: #059669; }
+    a.test-link.secondary:hover { background: #047857; }
+    a.test-link.muted { background: #4b5563; }
+    a.test-link.muted:hover { background: #374151; }
+    code { background: #e5e7eb; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    ol, ul { padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    th { background: #f3f4f6; }
+  </style>
+</head>
+<body>
+  <h1>链接变更监控 — 通用网站测试页</h1>
+  <p class="hint">
+    除安徽省招标网、合肥公共资源外，<strong>任意普通网站</strong>均可监控。
+    扩展在后台直接请求 URL（带 Cookie），无需专用工具条。
+  </p>
+
+  <div class="notice">
+    <strong>快速测「有变化」：</strong>右键下面 UUID 链接 → 开启链接监控 → 间隔设 <strong>5 秒</strong> →
+    第二次检查应强提醒。<br>
+    <strong>快速测「无变化」：</strong>监控 <code>example.com</code> 或下方静态页 → 立即检查应提示正文无变化。
+  </div>
+
+  <div class="card ok">
+    <h2>① 推荐：UUID（每次内容都变）</h2>
+    <p>使用 <code>httpbingo.org</code>（勿用已失效的 httpbin.org）。间隔 5 秒，第二次检查必报变更。</p>
+    <a class="test-link" href="https://httpbingo.org/uuid">UUID 测试链接</a>
+    <p style="font-size:13px;margin-top:10px;">URL：<code>https://httpbingo.org/uuid</code></p>
+  </div>
+
+  <div class="card static">
+    <h2>② 静态页（应无变化）</h2>
+    <p>用于验证「没改就不提醒」。监控后多次「立即检查」应均为正文无变化。</p>
+    <a class="test-link muted" href="https://example.com">Example.com（经典静态页）</a>
+    <a class="test-link muted" href="https://httpbingo.org/html">httpbingo 固定 HTML 页</a>
+  </div>
+
+  <div class="card">
+    <h2>③ 备选：随机整数（每次刷新都变）</h2>
+    <p>模拟普通 HTML 页面，右键链接添加监控。</p>
+    <a class="test-link secondary" href="https://www.random.org/integers/?num=10&amp;min=1&amp;max=100&amp;col=10&amp;base=10&amp;format=html&amp;rnd=new">random.org 随机整数页</a>
+  </div>
+
+  <div class="card">
+    <h2>④ 其他普通网站怎么测</h2>
+    <table>
+      <thead>
+        <tr><th>方式</th><th>操作</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>链接右键</td>
+          <td>在任意网页的链接上右键 → <strong>开启链接监控</strong></td>
+        </tr>
+        <tr>
+          <td>当前页</td>
+          <td>页面空白处右键 → <strong>监控当前标签页网址</strong></td>
+        </tr>
+        <tr>
+          <td>地址栏</td>
+          <td>输入 <code>lj</code> 回车（监控当前标签页）</td>
+        </tr>
+        <tr>
+          <td>扩展面板</td>
+          <td>粘贴 URL → 开始监控；或「监控当前标签页」</td>
+        </tr>
+        <tr>
+          <td>GitHub 等</td>
+          <td>打开仓库/议题页 → 右键或 lj，与招标网无关</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 style="font-size:16px;margin-top:24px;">标准测试步骤（UUID）</h2>
+  <ol>
+    <li>右键上方 UUID 链接 → <strong>开启链接监控</strong></li>
+    <li>扩展面板：间隔 <strong>5 秒</strong>，保存，确认已开始监控</li>
+    <li>等待约 10 秒，或点两次「立即检查」</li>
+    <li>应出现：系统通知 + Chrome 弹窗 + 提示音（首次仅建基准，第二次才提醒）</li>
+  </ol>
+
+  <p class="hint" style="margin-top:24px;">
+    更多测试地址与说明见 <code>docs/测试网站.md</code>
+  </p>
+</body>
+</html>

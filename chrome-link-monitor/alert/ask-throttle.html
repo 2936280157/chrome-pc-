@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>弹窗频率提醒</title>
+  <link rel="stylesheet" href="alert.css">
+  <style>
+    .actions .btn.warn { background: #dc2626; color: #fff; }
+    .actions .btn.warn:hover { background: #b91c1c; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="alert-header">
+      <img class="alert-icon" src="../icons/popup-alert.png" alt="">
+      <div class="badge">链接变更监控</div>
+    </div>
+    <h1 id="title"></h1>
+    <p id="message"></p>
+    <div class="actions">
+      <button id="btn-pause" class="btn warn"></button>
+      <button id="btn-continue" class="btn"></button>
+    </div>
+  </div>
+  <script src="ask-throttle.js"></script>
+</body>
+</html>

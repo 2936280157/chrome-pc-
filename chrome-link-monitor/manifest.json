@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "链接变更监控",
+  "version": "2.0.42",
+  "description": "地址栏输入 lj 或右键链接/页面开启监控，定时检测内容变化并在桌面右下角提示",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "tabs",
+    "contextMenus",
+    "scripting",
+    "offscreen",
+    "windows"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.ahtba.org.cn/*",
+        "*://ahtba.org.cn/*",
+        "*://ggzy.hefei.gov.cn/*",
+        "*://*.ggzy.hefei.gov.cn/*"
+      ],
+      "js": ["content/site-ahtba.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "链接变更监控",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "omnibox": {
+    "keyword": "lj"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*.png", "offscreen/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
